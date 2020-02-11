@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boot-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boot-admin
+  template:
+    metadata:
+      labels:
+        app: boot-admin
+    spec:
+      containers:
+      - name: boot-admin
+        image: tonyhe2k/boot-admin
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: boot-admin
+spec:
+    selector:
+      app: boot-admin
+
+    ports:
+      - name: http
+        port: 9999
+
+    type: ClusterIP

@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: istore-angular-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: istore-angular-ui
+  template:
+    metadata:
+      labels:
+        app: istore-angular-ui
+    spec:
+      containers:
+      - name: istore-angular-ui
+        image: tonyhe2k/k8s-istore-angular-ui
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istore-angular-ui
+spec:
+  # this defines which pods are going to be represented by this service
+  # the service becomes a network endpoint for either other services or
+  # maybe external users to connect to (eg browser)
+  selector:
+    app: istore-angular-ui
+
+  ports:
+    - name: http
+      port: 80
+
+  type: ClusterIP
